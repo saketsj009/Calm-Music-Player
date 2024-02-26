@@ -38,8 +38,8 @@ nav ul li{
 }
 .brand img {
     vertical-align: middle;
-    width: 30px; /* Adjust the size as needed */
-    height: 30px; /* Adjust the size as needed */
+    width: 60px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
     transition: transform 0.2s ease-in-out;
 }
 
