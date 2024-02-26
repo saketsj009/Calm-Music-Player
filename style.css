@@ -51,29 +51,33 @@ nav ul li{
 .container{
     min-height: 72vh;
     background-color: black;
-    color: white;
+    color: rgb(0, 0, 0);
    font-family: 'Varela Round', sans-serif;
    display: flex;
    margin: 23px auto;
-   width: 70%;
+   width: 80%;
+   border:20px color(srgb rgb(0, 12, 244) green blue)
    border-radius: 12px;
    padding: 34px;
    background-image: url('bg.jpg');
 }
 
 .bottom{
+    display: flex;
     position: sticky;
     bottom: 0;
     height: 130px;
     background-color: black;
     color: white;
-    display: flex;
+  
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse; 
 }
 
 .icons{
+    display:flex;
+    justify-content: TOP;
     margin-top: 14px; 
 }
 .icons i{
@@ -92,7 +96,7 @@ nav ul li{
 .songItem{
     height: 50px;
     display: flex;
-    background-color: white;
+    background-color: darkslateblue;
     
     color: black;
     margin: 12px 0;
