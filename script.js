@@ -1,149 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-body{
-    background-color: antiquewhite;
-}
+console.log("Welcome to Calmify");
 
-*{
-    margin: 0;
-    padding: 0;
-}
+// Initialize the Variables
+let songIndex = 0;
+let audioElement = new Audio('songs/1.mp3');
+let masterPlay = document.getElementById('masterPlay');
+let myProgressBar = document.getElementById('myProgressBar');
+let gif = document.getElementById('gif');
+let masterSongName = document.getElementById('masterSongName');
+let songItems = Array.from(document.getElementsByClassName('songItem'));
 
-nav{
-    font-family: 'Ubuntu', sans-serif;
-}
+let songs = [
+    {songName: "Birds-Nature-Relax-Sounds", filePath: "songs/1.mp3", coverPath: "covers/1.jpg"},
+    {songName: "Forest-With-Small-River-Birds-and-Nature", filePath: "songs/2.mp3", coverPath: "covers/2.jpg"},
+    {songName: "Rain-And-Thunder", filePath: "songs/3.mp3", coverPath: "covers/3.jpg"},
+    {songName: "Dripping-Water-Nature-", filePath: "songs/4.mp3", coverPath: "covers/4.jpg"},
+    {songName: "Gentle-Ocean-Waves-Birdsong-And-Gull", filePath: "songs/5.mp3", coverPath: "covers/5.jpg"},
+    {songName: "Fireplace-With-Crackling-Sounds", filePath: "songs/2.mp3", coverPath: "covers/6.jpg"},
+    {songName: "Brook-Winter-Ice-Forest", filePath: "songs/2.mp3", coverPath: "covers/7.jpg"},
+    {songName: "Wind-In-Trees", filePath: "songs/2.mp3", coverPath: "covers/8.jpg"},
+    {songName: "Relaxing-Amp-Calming-Evening-Lake-Water", filePath: "songs/2.mp3", coverPath: "covers/9.jpg"},
+    {songName: "Night-Ambience", filePath: "songs/4.mp3", coverPath: "covers/10.jpg"},
+]
 
-nav ul{
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    height: 65px;
-    background-color: black;
-    color: white;
-}
+songItems.forEach((element, i)=>{ 
+    element.getElementsByTagName("img")[0].src = songs[i].coverPath; 
+    element.getElementsByClassName("songName")[0].innerText = songs[i].songName; 
+})
+ 
 
-nav ul li{
-    padding: 0 12px;
-}
-.brand img{
-    width: 44px;
-    padding: 0 8px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    font-weight: bolder;
-    font-size: 1.3rem;
-}
-.brand img {
-    vertical-align: middle;
-    width: 60px; /* Adjust the size as needed */
-    height: 50px; /* Adjust the size as needed */
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Add this rule for the hover effect */
-.brand img:hover {
-    transform: scale(1.5); /* Adjust the scale factor for the hover effect */
-}
-
-.container{
-    min-height: 72vh;
-    background-color: black;
-    color: rgb(0, 0, 0);
-   font-family: 'Varela Round', sans-serif;
-   display: flex;
-   margin: 23px auto;
-   width: 80%;
-   border:20px color(srgb rgb(0, 12, 244) green blue)
-   border-radius: 12px;
-   padding: 34px;
-   background-image: url('bg.jpg');
-}
-
-.bottom{
-    display: flex;
-    
-    position: sticky;
-    bottom: 0;
-    height: 130px;
-    background-color: black;
-    color: white;
-
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; 
-}
-
-.icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding:20px;
-    margin-bottom: 20px; /* Adjusted margin to create space between icons and progress bar */
-}
-.icons i{
-    cursor: pointer;
-}
-.icons i {
-    margin: 0 4px; /* Adjusted margin to create space between icons */
-}
-#myProgressBar{
-    display :flex;
-    width: 80vw; 
-    cursor: pointer;
-}
-
-.songItemContainer{
-    margin-top: 74px;
-}
-
-.songItem{
-    height: 60px;
-    display: flex;
-    background-color: rgb(252, 220, 150);
-    
-    color: black;
-    margin: 12px 0;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 40px;
-}
-
-.songItem img{
-    height:50px;
-    width: 50px;
-    margin: 50px 20px;
-    
-    border-radius: 70px;
-  
-}
-.songItem img:hover {
-    transform: scale(1.5); /* Adjust the scale factor for the hover effect */
-}
-
-.timestamp{
-    margin: 0 23px;
-}
-
-.timestamp i{
-    cursor: pointer;
-}
-
-.songInfo{
-    position: absolute;
-    left: 10vw;
-    font-family: 'Varela Round', sans-serif;
-}
-
-.songInfo img{
-    opacity: 0;
-    transition: opacity 0.4s ease-in;
-}
-
-@media only screen and (max-width: 1100px) {
-    body {
-      background-color: rgb(0, 0, 0);
+// Handle play/pause click
+masterPlay.addEventListener('click', ()=>{
+    if(audioElement.paused || audioElement.currentTime<=0){
+        audioElement.play();
+        masterPlay.classList.remove('fa-play-circle');
+        masterPlay.classList.add('fa-pause-circle');
+        gif.style.opacity = 1;
     }
-  }
+    else{
+        audioElement.pause();
+        masterPlay.classList.remove('fa-pause-circle');
+        masterPlay.classList.add('fa-play-circle');
+        gif.style.opacity = 0;
+    }
+})
+// Listen to Events
+audioElement.addEventListener('timeupdate', ()=>{ 
+    // Update Seekbar
+    progress = parseInt((audioElement.currentTime/audioElement.duration)* 100); 
+    myProgressBar.value = progress;
+})
+
+myProgressBar.addEventListener('change', ()=>{
+    audioElement.currentTime = myProgressBar.value * audioElement.duration/100;
+})
+
+const makeAllPlays = ()=>{
+    Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
+        element.classList.remove('fa-pause-circle');
+        element.classList.add('fa-play-circle');
+    })
+}
+
+Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
+    element.addEventListener('click', (e)=>{ 
+        makeAllPlays();
+        songIndex = parseInt(e.target.id);
+        e.target.classList.remove('fa-play-circle');
+        e.target.classList.add('fa-pause-circle');
+        audioElement.src = `songs/${songIndex+1}.mp3`;
+        masterSongName.innerText = songs[songIndex].songName;
+        audioElement.currentTime = 0;
+        audioElement.play();
+        gif.style.opacity = 1;
+        masterPlay.classList.remove('fa-play-circle');
+        masterPlay.classList.add('fa-pause-circle');
+    })
+})
+
+document.getElementById('next').addEventListener('click', ()=>{
+    if(songIndex>=9){
+        songIndex = 0
+    }
+    else{
+        songIndex += 1;
+    }
+    audioElement.src = `songs/${songIndex+1}.mp3`;
+    masterSongName.innerText = songs[songIndex].songName;
+    audioElement.currentTime = 0;
+    audioElement.play();
+    masterPlay.classList.remove('fa-play-circle');
+    masterPlay.classList.add('fa-pause-circle');
+
+})
+
+document.getElementById('previous').addEventListener('click', ()=>{
+    if(songIndex<=0){
+        songIndex = 0
+    }
+    else{
+        songIndex -= 1;
+    }
+    audioElement.src = `songs/${songIndex+1}.mp3`;
+    masterSongName.innerText = songs[songIndex].songName;
+    audioElement.currentTime = 0;
+    audioElement.play();
+    masterPlay.classList.remove('fa-play-circle');
+    masterPlay.classList.add('fa-pause-circle');
+})
