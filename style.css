@@ -64,27 +64,33 @@ nav ul li{
 
 .bottom{
     display: flex;
+    
     position: sticky;
     bottom: 0;
     height: 130px;
     background-color: black;
     color: white;
-  
+
     justify-content: center;
     align-items: center;
-    flex-direction: column-reverse; 
+    flex-direction: column; 
 }
 
-.icons{
-    display:flex;
-    justify-content: TOP;
-    margin-top: 14px; 
+.icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    margin-bottom: 20px; /* Adjusted margin to create space between icons and progress bar */
 }
 .icons i{
     cursor: pointer;
 }
-
+.icons i {
+    margin: 0 4px; /* Adjusted margin to create space between icons */
+}
 #myProgressBar{
+    display :flex;
     width: 80vw; 
     cursor: pointer;
 }
@@ -94,21 +100,28 @@ nav ul li{
 }
 
 .songItem{
-    height: 50px;
+    height: 60px;
     display: flex;
-    background-color: darkslateblue;
+    background-color: rgb(192, 91, 19);
     
     color: black;
     margin: 12px 0;
     justify-content: space-between;
     align-items: center;
-    border-radius: 34px;
+    border-radius: 40px;
 }
 
 .songItem img{
-    width: 43px;
-    margin: 0 23px;
-    border-radius: 34px;
+    height:50px;
+    width: 50px;
+    margin: 50px 20px;
+    padding :8px;
+    border-radius: 70px;
+   border-color: black;
+   border-width: 2px;
+}
+.songItem img:hover {
+    transform: scale(1.5); /* Adjust the scale factor for the hover effect */
 }
 
 .timestamp{
@@ -132,6 +145,6 @@ nav ul li{
 
 @media only screen and (max-width: 1100px) {
     body {
-      background-color: red;
+      background-color: rgb(0, 0, 0);
     }
   }
